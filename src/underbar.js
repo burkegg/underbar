@@ -218,7 +218,7 @@
     }
   }
     return accumulator;
-  };
+  };  
 
   // Determine if the array or object contains a given value (using `===`).
   _.contains = function(collection, target) {
