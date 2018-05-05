@@ -64,11 +64,10 @@
       }
     }
     if (!Array.isArray(collection)){
-    for (let key in collection){
-      iterator(collection[key], key, collection);
+      for (let key in collection){
+        iterator(collection[key], key, collection);
+      }
     }
-  }
-
     
   };
 
@@ -91,16 +90,48 @@
 
   // Return all elements of an array that pass a truth test.
   _.filter = function(collection, test) {
+    let output = [];
+    _.each(collection, function(item){
+      if (test(item)){
+        output.push(item);
+      }
+    })
+    return output;
   };
 
   // Return all elements of an array that don't pass a truth test.
   _.reject = function(collection, test) {
     // TIP: see if you can re-use _.filter() here, without simply
     // copying code in and modifying it
+    let passTest = _.filter(collection, test);
+    let output = [];
+    for (let idx = 0; idx < collection.length; idx++){
+      if (!passTest.includes(collection[idx])){
+        output.push(collection[idx]);
+      }
+    }
+    return output;
   };
 
   // Produce a duplicate-free version of the array.
   _.uniq = function(array, isSorted, iterator) {
+    //let copyArray = array.slice();
+    let output = [];
+    if (isSorted){
+      output.push(array[0]);
+      for (let idx = 1; idx < array.length; idx++){
+        if (array[idx] !== array[idx - 1]){
+          output.push(iterator(array[idx]));
+        }
+      }
+    } else{
+      for (let idx = 0; idx < array.length; idx++){
+        if (!output.includes(array[idx])){
+          output.push(array[idx]);
+        }
+      }
+      return output;
+    }
   };
 
 
