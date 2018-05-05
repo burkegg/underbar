@@ -117,14 +117,36 @@
   _.uniq = function(array, isSorted, iterator) {
     //let copyArray = array.slice();
     let output = [];
+    let comparisons = [];
+    // if it's sorted...
+    //. Make an array that keeps track of whether everything is true or false
+    //. then go through that and get the indices of the first two that are different
+    //. take those indices, and extract the original inputs.
+    // if (isSorted){
+    //   output.push(array[0]);
+    //   for (let idx = 1; idx < array.length; idx++){
+    //     if (array[idx] !== array[idx - 1]){
+    //       output.push(array[idx]);
+    //     }
+    //   }
+    //   return output;
     if (isSorted){
-      output.push(array[0]);
-      for (let idx = 1; idx < array.length; idx++){
-        if (array[idx] !== array[idx - 1]){
-          output.push(iterator(array[idx]));
+      let keepIndices = [];
+      for (let idx = 0; idx < array.length; idx++){
+        comparisons.push(iterator(array[idx]));
+      }
+      keepIndices.push(0);
+      for (let idx = 1; idx < comparisons.length; idx++){
+        if (comparisons[idx] !== comparisons[idx - 1]){
+          keepIndices.push(idx);
         }
       }
-    } else{
+      output.push(array[keepIndices[0]]);
+      output.push(array[keepIndices[1]]);
+      return output;
+      
+    }
+     else{
       for (let idx = 0; idx < array.length; idx++){
         if (!output.includes(array[idx])){
           output.push(array[idx]);
