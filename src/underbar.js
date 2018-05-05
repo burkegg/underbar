@@ -206,27 +206,17 @@
     console.log('iterator: ', iterator);
     console.log('accumulator ' , accumulator);
     
-    // if no accum, let coll[0] as accum.
-    // loop over remaining items.
-    let output;
+
     if (accumulator === undefined){
-      output = collection[0];
+      accumulator = collection[0];
       for (let idx = 1; idx < collection.length; idx++){
         accumulator = iterator(accumulator, collection[idx], idx);
       }
     }else{
-
     for (let idx = 0; idx < collection.length; idx++){
-      //console.log('item ' , collection[idx]);
-      //console.log('accumulator: ', accumulator)
-
       accumulator = iterator(accumulator, collection[idx], idx);
-      //console.log('tempAcc: ', tempAcc);
-      //console.log('Results:  ' , iterator(accumulator, collection[idx]));
-
     }
   }
-  
     return accumulator;
   };
 
