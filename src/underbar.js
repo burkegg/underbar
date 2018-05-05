@@ -122,14 +122,7 @@
     //. Make an array that keeps track of whether everything is true or false
     //. then go through that and get the indices of the first two that are different
     //. take those indices, and extract the original inputs.
-    // if (isSorted){
-    //   output.push(array[0]);
-    //   for (let idx = 1; idx < array.length; idx++){
-    //     if (array[idx] !== array[idx - 1]){
-    //       output.push(array[idx]);
-    //     }
-    //   }
-    //   return output;
+
     if (isSorted){
       let keepIndices = [];
       for (let idx = 0; idx < array.length; idx++){
@@ -162,6 +155,12 @@
     // map() is a useful primitive iteration function that works a lot
     // like each(), but in addition to running the operation on all
     // the members, it also maintains an array of results.
+    let output = [];
+    let copyArray = collection.slice();
+    for (let idx = 0; idx < copyArray.length; idx++){
+      output.push(iterator(copyArray[idx]));
+    }
+    return output;
   };
 
   /*
@@ -170,7 +169,7 @@
    * as an example of this.
    */
 
-  // Takes an array of objects and returns and array of the values of
+  // Takes an array of objects and returns an array of the values of
   // a certain property in it. E.g. take an array of people and return
   // an array of just their ages
   _.pluck = function(collection, key) {
@@ -203,6 +202,32 @@
   //   }); // should be 5, regardless of the iterator function passed in
   //          No accumulator is given so the first element is used.
   _.reduce = function(collection, iterator, accumulator) {
+    console.log('collection: ', collection);
+    console.log('iterator: ', iterator);
+    console.log('accumulator ' , accumulator);
+    
+    // if no accum, let coll[0] as accum.
+    // loop over remaining items.
+    let output;
+    if (accumulator === undefined){
+      output = collection[0];
+      for (let idx = 1; idx < collection.length; idx++){
+        accumulator = iterator(accumulator, collection[idx], idx);
+      }
+    }else{
+
+    for (let idx = 0; idx < collection.length; idx++){
+      //console.log('item ' , collection[idx]);
+      //console.log('accumulator: ', accumulator)
+
+      accumulator = iterator(accumulator, collection[idx], idx);
+      //console.log('tempAcc: ', tempAcc);
+      //console.log('Results:  ' , iterator(accumulator, collection[idx]));
+
+    }
+  }
+  
+    return accumulator;
   };
 
   // Determine if the array or object contains a given value (using `===`).
