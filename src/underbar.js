@@ -284,7 +284,7 @@
         //console.log('Accumu: ', accumulator);
       }return tempStatus && accumulator;
      }, true);
-    
+
     return answer2;
   };
 
@@ -305,24 +305,30 @@
       //console.log("INSIDE  ", iterator);
     }
 
-let output = _.every(collection, function(item) {
-  let tempState;
-  if(iterator(item)){
-    //console.log(collection, '  ' , item, '  it evals to true');
-    return true;
-  }
-  else{
-    //console.log(collection, '  ' , item, '  it evals to false');
-    return false;
-  }
-}); 
+    let allTest = _.every(collection, function(item){
+      if (iterator(item)){
+        return false;
+      }else{
+        return true;
+      }
+    });
+
+    return !allTest;
+}
+// let output = _.every(collection, function(item) {
+//   let tempState;
+//   if(iterator(item)){
+//     //console.log(collection, '  ' , item, '  it evals to true');
+//     return true;
+//   }
+//   else{
+//     //console.log(collection, '  ' , item, '  it evals to false');
+//     return false;
+//   }
+// }); 
     //console.log(collection, '  output  ' , output);
 
-output = output;
-    return output;
-    // console.log('collection: ', collection, '  output  ', typeof output, output);
-    // return output;
-  };
+
 
 
   /**
