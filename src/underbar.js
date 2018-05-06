@@ -215,10 +215,10 @@
         accumulator = iterator(accumulator, collection[idx], idx);
       }
     }else{
-    for (let idx = 0; idx < collection.length; idx++){
-      accumulator = iterator(accumulator, collection[idx], idx);
+      for (let idx = 0; idx < collection.length; idx++){
+        accumulator = iterator(accumulator, collection[idx], idx);
+      }
     }
-  }
     return accumulator;
   };  
 
@@ -241,6 +241,49 @@
   // Determine whether all of the elements match a truth test.
   _.every = function(collection, iterator) {
     // TIP: Try re-using reduce() here.
+    // Start reduce out with a true.  Do:
+    // If there is no array passed in, return true.
+    if (!Array.isArray(arguments[0])){
+      return true;
+    }
+    // If there is an array, and its length is zero, return true.
+    if (arguments[0].length === 0){
+      return true;
+    }
+
+    let test;
+    if (collection[0]){
+      test = true;
+    } else {
+      test = false;
+    }
+    //. If no function is passed in, compare for similarity.
+    if (Array.isArray(arguments[0]) && (arguments.length === 1)){
+      let answer = _.reduce(collection, function(accumulator, item){
+        let tempStatus;
+        if (item){
+          tempStatus = true;
+        }
+        if ((test === true) && (tempStatus === true)){
+          return true;
+        }
+        return false;
+      }, test);
+      return answer;
+    }
+
+    // Call iterator over every item, then see if truth state changes
+    let answer2 = _.reduce(collection, function(accumulator, item){
+      let tempStatus;
+      if (iterator(item)){
+        tempStatus = true;
+      }else{
+        tempStatus = false;
+        console.log('Status: ', tempStatus);
+        console.log('Accumu: ', accumulator);
+      }return tempStatus === accumulator;
+     }, true);
+    return answer2;
   };
 
   // Determine whether any of the elements pass a truth test. If no iterator is
