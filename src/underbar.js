@@ -327,15 +327,15 @@
 
   // Like extend, but doesn't ever overwrite a key that already
   // exists in obj
-  _.defaults = function(obj) {
-    for (let idx = 1; idx < arguments.length; idx++){
-      for (let key in arguments[idx]){
-        if (!obj.hasOwnProperty(key)){
-          obj[key] = arguments[idx][key];
+  _.defaults = function(...theArgs) {
+    for (let idx = 1; idx < theArgs.length; idx++){
+      for (let key in theArgs[idx]){
+        if (!theArgs[0].hasOwnProperty(key)){
+          theArgs[0][key] = theArgs[idx][key];
         }
       }
     }
-    return obj;
+    return theArgs[0];
   };
 
 
@@ -370,7 +370,8 @@
     };
   };
 
-  // Memorize an expensive function's results by storing them. You may assume
+
+  // Memoßize an expensive function's results by storing them. You may assume
   // that the function only takes primitives as arguments.
   // memoize could be renamed to oncePerUniqueArgumentList; memoize does the
   // same thing as once, but based on many sets of unique arguments.
@@ -379,7 +380,15 @@
   // already computed the result for the given argument and return that value
   // instead if possible.
   _.memoize = function(func) {
+    let memo = [];
+    //for
   };
+
+
+
+
+
+
 
   // Delays a function for the given number of milliseconds, and then calls
   // it with the arguments supplied.
