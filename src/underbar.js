@@ -257,21 +257,6 @@
     } else {
       test = false;
     }
-    //. If no function is passed in, compare for similarity.
-    // if (Array.isArray(arguments[0]) && (arguments.length < 2)){
-    //   console.log('no function', collection);
-    //   let answer = _.reduce(collection, function(accumulator, item){
-    //     let tempStatus;
-    //     if (item){
-    //       tempStatus = true;
-    //     }
-    //     if ((test === true) && (tempStatus === true)){
-    //       return true;
-    //     }
-    //     return tempStatus;
-    //   }, test);
-    //   return answer;
-    // }
 
     // Call iterator over every item, then see if truth state changes
     let answer2 = _.reduce(collection, function(accumulator, item){
@@ -280,8 +265,6 @@
         tempStatus = true;
       }else{
         tempStatus = false;
-        //console.log('Status: ', tempStatus);
-        //console.log('Accumu: ', accumulator);
       }return tempStatus && accumulator;
      }, true);
 
@@ -296,13 +279,12 @@
     //.   return false
     //.Otherwise,
     //.   return true
-    //console.log(arguments);
+
     if (arguments[0].length === 0){
       return false;
     }
     if (arguments.length === 1){
       iterator = _.identity;
-      //console.log("INSIDE  ", iterator);
     }
 
     let allTest = _.every(collection, function(item){
@@ -315,21 +297,6 @@
 
     return !allTest;
 }
-// let output = _.every(collection, function(item) {
-//   let tempState;
-//   if(iterator(item)){
-//     //console.log(collection, '  ' , item, '  it evals to true');
-//     return true;
-//   }
-//   else{
-//     //console.log(collection, '  ' , item, '  it evals to false');
-//     return false;
-//   }
-// }); 
-    //console.log(collection, '  output  ' , output);
-
-
-
 
   /**
    * OBJECTS
@@ -350,6 +317,13 @@
   //     bla: "even more stuff"
   //   }); // obj1 now contains key1, key2, key3 and bla
   _.extend = function(obj) {
+    console.log(arguments);
+    for (let idx = 1; idx < arguments.length; idx++){
+      for (let key in arguments[idx]){
+        obj[key] = arguments[idx][key];
+      }
+    }
+    return obj;
   };
 
   // Like extend, but doesn't ever overwrite a key that already
