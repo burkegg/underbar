@@ -371,7 +371,7 @@
   };
 
 
-  // Memoßize an expensive function's results by storing them. You may assume
+  // Memoize an expensive function's results by storing them. You may assume
   // that the function only takes primitives as arguments.
   // memoize could be renamed to oncePerUniqueArgumentList; memoize does the
   // same thing as once, but based on many sets of unique arguments.
@@ -380,8 +380,28 @@
   // already computed the result for the given argument and return that value
   // instead if possible.
   _.memoize = function(func) {
-    let memo = [];
-    //for
+
+
+  // build a dictionary of argument : results
+  let memo = {};
+  // return a function that uses the input function...
+  return function(){
+    //First get arguments
+    var args = Array.prototype.slice.call(arguments);
+    // if it has the result in the dictionary,
+    if (memo.hasOwnProperty[args]){
+      return memo[args];
+
+    } else {
+      let result = func.apply(this, arguments);
+      memo[args] = result;
+      return result;
+    }
+  //. if it has already run these args,
+  //. return them from the dictionary
+  //. otherwise
+    }
+
   };
 
 
