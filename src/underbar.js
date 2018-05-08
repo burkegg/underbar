@@ -381,32 +381,16 @@
   // instead if possible.
   _.memoize = function(func) {
 
-
-  // build a dictionary of argument : results
-  let memo = {};
-  // return a function that uses the input function...
-  return function(){
-    //First get arguments
-    var args = Array.prototype.slice.call(arguments);
-    // if it has the result in the dictionary,
-    if (memo.hasOwnProperty[args]){
-      return memo[args];
-
-    } else {
-      let result = func.apply(this, arguments);
-      memo[args] = result;
-      return result;
-    }
-  //. if it has already run these args,
-  //. return them from the dictionary
-  //. otherwise
-    }
-
-  };
-
-
-
-
+    let memo = {};
+    return function(){
+      let temp = JSON.stringify(arguments);
+      if(memo[temp]){
+        return memo[temp];
+      } else {
+        return memo[temp] = func.apply(this, arguments);ß
+      }
+    };
+  }
 
 
 
@@ -417,6 +401,12 @@
   // parameter. For example _.delay(someFunction, 500, 'a', 'b') will
   // call someFunction('a', 'b') after 500ms
   _.delay = function(func, wait) {
+    let arg1 = arguments[2];
+    let arg2 = arguments[3];
+    console.log(wait);
+    return setTimeout(function(){
+       func(arg1, arg2)}, arguments[1]);
+    console.log(arguments);
   };
 
 
@@ -431,6 +421,22 @@
   // input array. For a tip on how to make a copy of an array, see:
   // http://mdn.io/Array.prototype.slice
   _.shuffle = function(array) {
+    let keep = array.slice();
+    let indices = [];
+    for (let idx = 0; idx < keep.length; idx++){
+      indices.push(idx);
+    }
+    let build = [];
+    let pulledItem;
+    let randIDX;
+    for (let idx = 0; idx < keep.length; idx++){
+      randIDX = indices.splice([Math.floor((Math.random() * indices.length))], 1);
+      pulledItem = keep[randIDX];
+      console.log('PI ' + pulledItem + '  randIDX   ' + randIDX);
+      build.push(pulledItem);  
+    }
+    return build;
+  
   };
 
 
